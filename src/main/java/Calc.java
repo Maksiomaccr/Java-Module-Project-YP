@@ -1,4 +1,3 @@
-import java.time.Period;
 import java.util.Scanner;
 
 public class Calc {
@@ -17,17 +16,18 @@ public class Calc {
         while (true) {
             System.out.println("Введите название товара.");
             product.name = scanner.next();
+            scanner.useDelimiter("\n");
             System.out.println("Введите стоимость товара.");
             product.price = getDouble();
             product.sum = product.sum + product.price;
             list = list + String.format("%s - %.2f %s\n", product.name, product.price, format.getRuble(product.sum));
+
             System.out.println("Товар добавлен. Добавить ещё товар или завершить?");
             answer = scanner.next();
 
             if(answer.equalsIgnoreCase("завершить")){
-              break;
+                break;
             }
-
         }
         System.out.println(list);
     }
@@ -35,14 +35,19 @@ public class Calc {
     private static double getDouble(){
         while(!scanner.hasNextDouble()){
             System.out.println("Введите сумму");
-            scanner.next();
-            if (scanner.nextDouble() <= 0){
-                System.out.println("Стоимость не может быть отрицательной. Введите стоимость корректно.");
-                scanner.next();
-            }
+            scanner.nextLine();
+            while(scanner.nextDouble() <= 0){
+               System.out.println("Стоимость не может быть отрицательной. Введите стоимость корректно.");
+              scanner.nextLine();
+          }
         }
+
         return scanner.nextDouble();
     }
+
+
+
+
 
 
 }
